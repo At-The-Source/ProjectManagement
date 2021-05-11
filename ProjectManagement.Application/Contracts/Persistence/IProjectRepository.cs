@@ -9,6 +9,9 @@ namespace ProjectManagement.Application.Contracts.Persistence
 {
     public interface IProjectRepository : IAsyncRepository<Project>
     {
-
+        Task<List<Project>> GetProjectsWithTasks(bool includeTaskHistory);
+        
+        // Validation
+        Task<bool> IsNameAndDescriptionUnique(string name, string description);
     }
 }
