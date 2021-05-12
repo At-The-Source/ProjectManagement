@@ -24,7 +24,7 @@ namespace ProjectManagement.Application.Features.Projects.Commands.CreateProject
 
         public async Task<Guid> Handle(CreateProjectCommand request, CancellationToken cancellationToken)
         {
-            var validator = new CreateProjectCommandValidator();
+            var validator = new CreateProjectCommandValidator(_projectRepository);
             var result = await validator.ValidateAsync(request);
             if(result.Errors.Count > 0) { throw new Exceptions.ValidationException(result); }
 

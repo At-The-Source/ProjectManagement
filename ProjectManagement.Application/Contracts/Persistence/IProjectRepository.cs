@@ -9,6 +9,7 @@ namespace ProjectManagement.Application.Contracts.Persistence
 {
     public interface IProjectRepository : IAsyncRepository<Project>
     {
+        // Functionality
         Task<List<Project>> GetProjectsWithTasks(bool includeTaskHistory);
         
         // Validation
