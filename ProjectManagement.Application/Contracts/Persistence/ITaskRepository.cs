@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ProjectManagement.Application.Contracts.Persistence
 {
-    interface ITaskRepository : IAsyncRepository<ProjectManagement.Domain.Entities.Task>
+    public interface ITaskRepository : IAsyncRepository<ProjectManagement.Domain.Entities.Task>
     {
     }
 }

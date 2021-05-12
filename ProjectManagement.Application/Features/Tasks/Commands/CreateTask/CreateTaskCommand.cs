@@ -1,13 +1,13 @@
-﻿using ProjectManagement.Domain.Common;
+﻿using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectManagement.Domain.Entities
+namespace ProjectManagement.Application.Features.Tasks.Commands.CreateTask
 {
-    public class Task : AuditableEntity
+    public class CreateTaskCommand : IRequest<Guid>
     {
         public Guid TaskId { get; set; }
         public string TaskName { get; set; }

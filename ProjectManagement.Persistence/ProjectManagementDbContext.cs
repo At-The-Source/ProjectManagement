@@ -14,7 +14,6 @@ namespace ProjectManagement.Persistence
     {
         public ProjectManagementDbContext(DbContextOptions<ProjectManagementDbContext> options) : base(options)
         {
-
         }
 
         public DbSet<Project> Projects { get; set; }

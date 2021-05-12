@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace ProjectManagement.Application.Contracts.Persistence
 {
-    interface IUserRepository : IAsyncRepository<User>
+    public interface IUserRepository : IAsyncRepository<User>
     {
+        // Validation
+        Task<bool> IsUserNameUnique(string userName);
     }
 }

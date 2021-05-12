@@ -26,10 +26,14 @@ namespace ProjectManagement.Application.Features.Projects
 
         public async Task<SpecificProjectVM> Handle(GetSpecificProjectQuery request, CancellationToken cancellationToken)
         {
-            //TODO: return a specific project query
+            //Get project
             var project = await _projectRepository.GetByIdAsync(request.Id);
-            var specificProjectVM = _mapper.Map<TaskDto>(project);
-            return null;
+            var specificProjectVM = _mapper.Map<SpecificProjectVM>(project);
+
+            // Get project task
+            var task = await _taskRepository.GetByIdAsync(project.TaskId);
+            specificProjectVM.Tasks = _mapper.Map<TaskDto>(task);
+            return specificProjectVM;
         }
     }
 }
