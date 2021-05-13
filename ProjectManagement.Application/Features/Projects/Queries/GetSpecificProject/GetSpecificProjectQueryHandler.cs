@@ -27,7 +27,7 @@ namespace ProjectManagement.Application.Features.Projects
         public async Task<SpecificProjectVM> Handle(GetSpecificProjectQuery request, CancellationToken cancellationToken)
         {
             //Get project
-            var project = await _projectRepository.GetByIdAsync(request.Id);
+            var project = await _projectRepository.GetByIdAsync(request.ProjectId);
             var specificProjectVM = _mapper.Map<SpecificProjectVM>(project);
 
             // Get project task

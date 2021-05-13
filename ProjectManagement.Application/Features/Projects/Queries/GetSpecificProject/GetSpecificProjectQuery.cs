@@ -9,6 +9,6 @@ namespace ProjectManagement.Application.Features.Projects
 {
     public class GetSpecificProjectQuery : IRequest<SpecificProjectVM>
     {
-        public Guid Id { get; set; }
+        public Guid ProjectId { get; set; }
     }
 }
