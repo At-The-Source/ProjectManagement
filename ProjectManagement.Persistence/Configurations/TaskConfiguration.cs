@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProjectManagement.Persistence.Configurations
 {
+    // Database configuration for Task entity
     public class TaskConfiguration : IEntityTypeConfiguration<Domain.Entities.Task>
     {
         public void Configure(EntityTypeBuilder<Domain.Entities.Task> builder)

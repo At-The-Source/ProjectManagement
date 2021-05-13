@@ -15,9 +15,8 @@ namespace ProjectManagement.Application
         // Register Automapper & MediatR with the Service collection, due to not having direct access 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            // TODO: Add Mediatr & AutoMapper to services.
-            //services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            //services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddMediatR(Assembly.GetExecutingAssembly());
             return services;
         }
     }

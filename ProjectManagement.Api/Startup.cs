@@ -50,7 +50,7 @@ namespace ProjectManagement.Api
             // Force HTTPS
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseCors();
+            app.UseCors("Open");
             app.UseEndpoints(endpoints =>
             {
                 // Enable routing to controllers
