@@ -38,7 +38,7 @@ namespace ProjectManagement.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<ProjectTaskListVM>>> GetAllProjectsWithTasks(bool includeHistory)
         {
-            var projectTaskVM = await _mediator.Send(new GetProjectsListWithTasksQuery() { IncludeHistory = includeHistory }) ;
+            var projectTaskVM = await _mediator.Send(new GetProjectsListWithTasksQuery() { IncludeHistory = false }) ;
             return Ok(projectTaskVM);
         }
 

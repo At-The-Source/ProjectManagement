@@ -45,9 +45,6 @@ namespace ProjectManagement.Persistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<Guid>("TaskId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
@@ -63,16 +60,21 @@ namespace ProjectManagement.Persistence.Migrations
                             ProjectId = new Guid("a29b4825-4b8e-477a-8849-e07a3c74d593"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "This is first test project.",
-                            ProjectName = "TestProject 1",
-                            TaskId = new Guid("00000000-0000-0000-0000-000000000000")
+                            ProjectName = "TestProject 1"
                         },
                         new
                         {
                             ProjectId = new Guid("33affb1e-06a8-4524-a2ce-544c81024372"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "This is second test project.",
-                            ProjectName = "TestProject 2",
-                            TaskId = new Guid("00000000-0000-0000-0000-000000000000")
+                            ProjectName = "TestProject 2"
+                        },
+                        new
+                        {
+                            ProjectId = new Guid("44affb1e-06a8-4524-a2ce-544c81524382"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "project containing task.",
+                            ProjectName = "TestProject w task"
                         });
                 });
 
@@ -97,7 +99,7 @@ namespace ProjectManagement.Persistence.Migrations
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("ProjectId")
+                    b.Property<Guid>("ProjectId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("StartDate")
@@ -120,21 +122,23 @@ namespace ProjectManagement.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            TaskId = new Guid("510e161f-7e06-4f6a-bf11-ee03c3d526b2"),
+                            TaskId = new Guid("9850415c-a070-4ded-bc7f-5e51e5c60d02"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Do test stuff 1.",
-                            StartDate = new DateTime(2021, 5, 15, 10, 27, 1, 266, DateTimeKind.Local).AddTicks(3192),
-                            StopDate = new DateTime(2021, 6, 2, 10, 27, 1, 272, DateTimeKind.Local).AddTicks(3475),
-                            TaskName = "TestTask 1"
+                            Description = "this task belong to a project.",
+                            ProjectId = new Guid("44affb1e-06a8-4524-a2ce-544c81524382"),
+                            StartDate = new DateTime(2021, 5, 27, 10, 19, 10, 545, DateTimeKind.Local).AddTicks(8984),
+                            StopDate = new DateTime(2021, 5, 29, 10, 19, 10, 550, DateTimeKind.Local).AddTicks(3828),
+                            TaskName = "TestTask part of project"
                         },
                         new
                         {
-                            TaskId = new Guid("2860415c-a070-4ded-bc9f-5e51e5c60d02"),
+                            TaskId = new Guid("7630415c-a070-4ded-bc7f-5e51e5c60d02"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Do test stuff 2.",
-                            StartDate = new DateTime(2021, 5, 21, 10, 27, 1, 272, DateTimeKind.Local).AddTicks(5021),
-                            StopDate = new DateTime(2021, 5, 23, 10, 27, 1, 272, DateTimeKind.Local).AddTicks(5044),
-                            TaskName = "TestTask 2"
+                            Description = "this task belong to a project 2.",
+                            ProjectId = new Guid("44affb1e-06a8-4524-a2ce-544c81524382"),
+                            StartDate = new DateTime(2021, 5, 23, 10, 19, 10, 550, DateTimeKind.Local).AddTicks(6603),
+                            StopDate = new DateTime(2021, 5, 31, 10, 19, 10, 550, DateTimeKind.Local).AddTicks(6629),
+                            TaskName = "TestTask part of project 2"
                         });
                 });
 
@@ -204,9 +208,13 @@ namespace ProjectManagement.Persistence.Migrations
 
             modelBuilder.Entity("ProjectManagement.Domain.Entities.Task", b =>
                 {
-                    b.HasOne("ProjectManagement.Domain.Entities.Project", null)
+                    b.HasOne("ProjectManagement.Domain.Entities.Project", "Project")
                         .WithMany("Tasks")
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("ProjectManagement.Domain.Entities.Project", b =>

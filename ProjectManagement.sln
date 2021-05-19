@@ -23,11 +23,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagement.Persisten
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagement.Api", "ProjectManagement.Api\ProjectManagement.Api.csproj", "{77FFD49F-62CE-4A1A-AAFB-662D839A6C83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagement.Application.UnitTests", "ProjectManagement.Application.UnitTests\ProjectManagement.Application.UnitTests.csproj", "{0EA90133-4209-4753-976F-ACAEA91F4DE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagement.Application.UnitTests", "ProjectManagement.Application.UnitTests\ProjectManagement.Application.UnitTests.csproj", "{0EA90133-4209-4753-976F-ACAEA91F4DE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagement.Persistence.IntegrationTests", "ProjectManagement.Persistence.IntegrationTests\ProjectManagement.Persistence.IntegrationTests.csproj", "{E6B0C587-D5D9-402B-A6C5-F07B63D15DD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagement.Persistence.IntegrationTests", "ProjectManagement.Persistence.IntegrationTests\ProjectManagement.Persistence.IntegrationTests.csproj", "{E6B0C587-D5D9-402B-A6C5-F07B63D15DD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagement.API.IntegrationTests", "ProjectManagement.API.IntegrationTests\ProjectManagement.API.IntegrationTests.csproj", "{2BB0E10A-B36D-47C6-9CBC-CE6052C58D07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagement.API.IntegrationTests", "ProjectManagement.API.IntegrationTests\ProjectManagement.API.IntegrationTests.csproj", "{2BB0E10A-B36D-47C6-9CBC-CE6052C58D07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagement.UI", "ProjectManagement.UI\ProjectManagement.UI.csproj", "{FFF62676-4CB1-43CA-BAAB-4AA75026AB6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagement.App", "ProjectManagement.App\ProjectManagement.App.csproj", "{62A9CC77-7152-46B6-ADCC-F2B89FB62045}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +67,14 @@ Global
 		{2BB0E10A-B36D-47C6-9CBC-CE6052C58D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BB0E10A-B36D-47C6-9CBC-CE6052C58D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BB0E10A-B36D-47C6-9CBC-CE6052C58D07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFF62676-4CB1-43CA-BAAB-4AA75026AB6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFF62676-4CB1-43CA-BAAB-4AA75026AB6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFF62676-4CB1-43CA-BAAB-4AA75026AB6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFF62676-4CB1-43CA-BAAB-4AA75026AB6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62A9CC77-7152-46B6-ADCC-F2B89FB62045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62A9CC77-7152-46B6-ADCC-F2B89FB62045}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62A9CC77-7152-46B6-ADCC-F2B89FB62045}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62A9CC77-7152-46B6-ADCC-F2B89FB62045}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +91,8 @@ Global
 		{0EA90133-4209-4753-976F-ACAEA91F4DE5} = {1B797A76-D46D-4BCA-B617-EE73B729D6BD}
 		{E6B0C587-D5D9-402B-A6C5-F07B63D15DD6} = {1B797A76-D46D-4BCA-B617-EE73B729D6BD}
 		{2BB0E10A-B36D-47C6-9CBC-CE6052C58D07} = {1B797A76-D46D-4BCA-B617-EE73B729D6BD}
+		{FFF62676-4CB1-43CA-BAAB-4AA75026AB6F} = {B3C3432D-B64B-4773-AB70-A7143D1E6EDA}
+		{62A9CC77-7152-46B6-ADCC-F2B89FB62045} = {B3C3432D-B64B-4773-AB70-A7143D1E6EDA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6677DF13-6BC5-438F-9B1B-5D83EEAED205}

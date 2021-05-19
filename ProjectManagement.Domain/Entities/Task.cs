@@ -14,5 +14,7 @@ namespace ProjectManagement.Domain.Entities
         public string Description { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime StopDate { get; set; }
+        public Guid ProjectId { get; set; }
+        public Project Project { get; set; }
     }
 }

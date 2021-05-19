@@ -25,6 +25,9 @@ namespace ProjectManagement.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add Swagger
+            AddSwagger(services);
+
             // Add services from other layers
             services.AddApplicationServices();
             services.AddPersistenceServices(Configuration);
@@ -47,14 +50,34 @@ namespace ProjectManagement.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            // Force HTTPS
             app.UseHttpsRedirection();
             app.UseRouting();
+            
+            // Swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(x => 
+            {
+                x.SwaggerEndpoint("/swagger/v1/swagger.json", "ProjectManagement API");
+            });
+
             app.UseCors("Open");
             app.UseEndpoints(endpoints =>
             {
                 // Enable routing to controllers
                 endpoints.MapControllers();
+            });
+        }
+
+        // Swagger documentation
+        private void AddSwagger(IServiceCollection services)
+        {
+            services.AddSwaggerGen(x =>
+            {
+                x.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Version = "v1.0",
+                    Title = "ProjectManagement API",
+                });
             });
         }
     }

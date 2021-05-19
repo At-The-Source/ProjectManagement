@@ -11,6 +11,6 @@ namespace ProjectManagement.Application.Features.Projects.Queries.GetProjectsLis
         public Guid ProjectId { get; set; }
         public string ProjectName { get; set; }
         public string Description { get; set; }
-        public ICollection<Task> Tasks { get; set; }
+        public ICollection<ProjectTaskDTO> Tasks { get; set; }
     }
 }

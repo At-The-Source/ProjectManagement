@@ -31,8 +31,9 @@ namespace ProjectManagement.Application.Features.Projects
             var specificProjectVM = _mapper.Map<SpecificProjectVM>(project);
 
             // Get project task
-            var task = await _taskRepository.GetByIdAsync(project.TaskId);
-            specificProjectVM.Tasks = _mapper.Map<TaskDto>(task);
+            // TODO: Change specific project retrieval
+            //var task = await _taskRepository.GetByIdAsync(project.TaskId);
+            //specificProjectVM.Tasks = _mapper.Map<TaskDto>(task);
             return specificProjectVM;
         }
     }

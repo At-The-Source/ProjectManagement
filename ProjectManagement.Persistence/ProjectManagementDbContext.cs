@@ -43,25 +43,74 @@ namespace ProjectManagement.Persistence
                     Description = "This is second test project."
                 });
 
+            //List<Domain.Entities.Task> projecttasks = new List<Domain.Entities.Task>()
+            //{
+            //    new Domain.Entities.Task
+            //    {
+            //        TaskId = Guid.Parse("69affb1e-06a8-4524-a2ce-544c81024372"),
+            //        TaskName = "TaskInProject1",
+            //        Description = "this is a task in a project 1",
+            //        StartDate = DateTime.Now.AddDays(2),
+            //        StopDate = DateTime.Now.AddDays(8),
+            //    },
+            //    new Domain.Entities.Task
+            //    {
+            //        TaskId = Guid.Parse("89affb1e-06a8-4524-a2ce-544c81024372"),
+            //        TaskName = "TaskInProject2",
+            //        Description = "this is a task in a project 2",
+            //        StartDate = DateTime.Now.AddDays(7),
+            //        StopDate = DateTime.Now.AddDays(18)
+            //    }
+            //};
+            modelBuilder.Entity<Project>().HasData(
+                new Project
+                {
+                    ProjectId = Guid.Parse("44affb1e-06a8-4524-a2ce-544c81524382"),
+                    ProjectName = "TestProject w task",
+                    Description = "project containing task."
+                });
+
             // Tasks
+            //modelBuilder.Entity<Domain.Entities.Task>().HasData(
+            //    new Domain.Entities.Task
+            //    {
+            //        TaskId = Guid.Parse("510e161f-7e06-4f6a-bf11-ee03c3d526b2"),
+            //        TaskName = "TestTask 1",
+            //        Description = "Do test stuff 1.",
+            //        StartDate = DateTime.Now.AddDays(2),
+            //        StopDate = DateTime.Now.AddDays(20),
+            //        ProjectId = Guid.Parse("33affb1e-06a8-4524-a2ce-544c81024372")
+            //    });
+            //modelBuilder.Entity<Domain.Entities.Task>().HasData(
+            //    new Domain.Entities.Task
+            //    {
+            //        TaskId = Guid.Parse("2860415c-a070-4ded-bc9f-5e51e5c60d02"),
+            //        TaskName = "TestTask 2",
+            //        Description = "Do test stuff 2.",
+            //        StartDate = DateTime.Now.AddDays(8),
+            //        StopDate = DateTime.Now.AddDays(10),
+            //        ProjectId = Guid.Parse("33affb1e-06a8-4524-a2ce-544c81024372")
+            //    });
             modelBuilder.Entity<Domain.Entities.Task>().HasData(
-                new Domain.Entities.Task
-                {
-                    TaskId = Guid.Parse("510e161f-7e06-4f6a-bf11-ee03c3d526b2"),
-                    TaskName = "TestTask 1",
-                    Description = "Do test stuff 1.",
-                    StartDate = DateTime.Now.AddDays(2),
-                    StopDate = DateTime.Now.AddDays(20)
-                });
+               new Domain.Entities.Task
+               {
+                   TaskId = Guid.Parse("9850415c-a070-4ded-bc7f-5e51e5c60d02"),
+                   TaskName = "TestTask part of project",
+                   Description = "this task belong to a project.",
+                   StartDate = DateTime.Now.AddDays(8),
+                   StopDate = DateTime.Now.AddDays(10),
+                   ProjectId = Guid.Parse("44affb1e-06a8-4524-a2ce-544c81524382")
+               });
             modelBuilder.Entity<Domain.Entities.Task>().HasData(
-                new Domain.Entities.Task
-                {
-                    TaskId = Guid.Parse("2860415c-a070-4ded-bc9f-5e51e5c60d02"),
-                    TaskName = "TestTask 2",
-                    Description = "Do test stuff 2.",
-                    StartDate = DateTime.Now.AddDays(8),
-                    StopDate = DateTime.Now.AddDays(10)
-                });
+               new Domain.Entities.Task
+               {
+                   TaskId = Guid.Parse("7630415c-a070-4ded-bc7f-5e51e5c60d02"),
+                   TaskName = "TestTask part of project 2",
+                   Description = "this task belong to a project 2.",
+                   StartDate = DateTime.Now.AddDays(4),
+                   StopDate = DateTime.Now.AddDays(12),
+                   ProjectId = Guid.Parse("44affb1e-06a8-4524-a2ce-544c81524382")
+               });
 
             // Users
             modelBuilder.Entity<User>().HasData(
