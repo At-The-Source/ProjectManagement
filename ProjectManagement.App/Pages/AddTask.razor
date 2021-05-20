@@ -1,0 +1,23 @@
+﻿@using Services 
+@using ViewModels
+@page "/addtask"
+
+<h5>Add new task</h5>
+
+<EditForm Model="@SpecificTaskViewModel">
+    
+</EditForm>
+
+
+
+@code {
+    public SpecificTaskViewModel SpecificTaskViewModel { get; set; }
+    private Guid TaskId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        Client client = new Client("https://localhost:44360");
+        //SpecificTaskViewModel = await client.GetTaskByIdAsync(TaskId);
+    }
+}

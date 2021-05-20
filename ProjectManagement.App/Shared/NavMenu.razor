@@ -1,6 +1,6 @@
 ﻿@using Services
 
-<div class="top-row pl-4 navbar navbar-light">
+<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">Project Management</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -24,20 +24,48 @@
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
             </NavLink>
         </li>
-
-        @foreach (var project in Projects)
-        {
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="fetchdata">
-                    <span class="oi oi-list-rich" aria-hidden="true"></span> @project.ProjectName
-                </NavLink>
-            </li>
-        }
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="currentproject">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Projects
+            </NavLink>
+        </li>
     </ul>
+    @if (Projects == null)
+    {
+        <p>Loading projects...</p>
+    }
+    else
+    {
+        <ul class="list-group">
+
+            @foreach (var project in Projects)
+            {
+                <li class="list-group-item border-0">
+                    <a class="text-white" @onclick="@(() => Layout.Title = project.ProjectName)" href="CurrentProject/@project.ProjectId">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> @project.ProjectName
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+
 </div>
 
+<style>
+    .list-group-item {
+        background-color: transparent;
+        border-radius: 0;
+        color: #fff;
+    }
+</style>
+
 @code {
+    [CascadingParameter]
+    public MainLayout Layout { get; set; }
+
+    // @onclick="@(p => NavigateToProj(project.ProjectId))"
     private bool collapseNavMenu = true;
+
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
@@ -53,4 +81,5 @@
         Client client = new Client("https://localhost:44360");
         Projects = await client.GetAllProjectsWithTasksAsync(false);
     }
+
 }

@@ -1,13 +1,19 @@
 ﻿@inherits LayoutComponentBase
+@using Services
 
+<CascadingValue Value="this">
 <div class="page">
-    <div class="sidebar">
+    <div class="sidebar" style="background-image:none; background-color:#668a99;">
         <NavMenu />
     </div>
 
     <div class="main">
         <div class="top-row px-4">
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+            <h3 class="mx-auto">@Title</h3>
+            <div>
+                <a href="http://blazor.net" target="_blank" class="ml-md-auto">Thomas</a>
+            </div>
+            <button type="button" class="btn btn-primary btn-circle btn-sm"> <i class="fa fa-user"></i> </button>
         </div>
 
         <div class="content px-4">
@@ -15,3 +21,41 @@
         </div>
     </div>
 </div>
+</CascadingValue>
+
+<style>
+    .btn-circle.btn-sm {
+        width: 30px;
+        height: 30px;
+        padding: 16px 16px;
+        border-radius: 15px;
+        font-size: 16px;
+        text-align: center;
+    }
+    .fa {
+        width: 30px;
+        height : 30px;
+    }
+</style>
+
+
+@code {
+    private string title;
+
+    public string Title
+    {
+        get => title;
+        set
+        {
+            title = value;
+            InvokeAsync(() => StateHasChanged());
+        }
+    }
+    //public ICollection<ProjectTaskListVM> Projects { get; set; }
+
+    //protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    //{
+    //    Client client = new Client("https://localhost:44360");
+    //    Projects = await client.GetAllProjectsWithTasksAsync(false);
+    //}
+}

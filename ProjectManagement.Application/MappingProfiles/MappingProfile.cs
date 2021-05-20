@@ -30,6 +30,7 @@ namespace ProjectManagement.Application.MappingProfiles
             CreateMap<Project, SpecificProjectVM>().ReverseMap();
             CreateMap<Domain.Entities.Task, TaskDto>();
             CreateMap<Project, ProjectTaskListVM>();
+            CreateMap<Project, ProjectDTO>();
             // Project commands
             CreateMap<Project, CreateProjectCommand>().ReverseMap();
             CreateMap<Project, UpdateProjectCommand>().ReverseMap();

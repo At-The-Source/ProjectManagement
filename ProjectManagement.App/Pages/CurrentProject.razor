@@ -1,5 +1,73 @@
-﻿<h3>CurrentProject</h3>
+﻿@page "/currentproject/{projectid:guid}"
+@using Services
+@inject NavigationManager NavigationManager
+
+@if (Projects == null)
+{
+    <p>Loading tasks...</p>
+}
+else
+{
+    <button class="btn btn-success mb-2" @onclick="AddTask">Add task</button>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Task name</th>
+                <th scope="col">Description</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var proj in Projects)
+            {
+                if (proj.ProjectId == ProjectId)
+                {
+                    foreach (var task in proj.Tasks)
+                    {
+                        taskAmount++;
+                        <tr>
+                            <th scope="row"></th>
+                            <td>
+                                @task.TaskName
+                            </td>
+                            <td>
+                                @task.Description
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-success">Edit</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-danger">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+}
+
+
+
 
 @code {
+    [Parameter]
+    public Guid? ProjectId { get; set; }
 
+    public ICollection<ProjectTaskListVM> Projects { get; set; }
+    private int taskAmount = 0;
+
+    protected void AddTask()
+    {
+        NavigationManager.NavigateTo("/AddTask");
+    }
+
+
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        Client client = new Client("https://localhost:44360");
+        Projects = await client.GetAllProjectsWithTasksAsync(false);
+    }
 }

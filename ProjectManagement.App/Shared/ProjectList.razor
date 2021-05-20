@@ -1,0 +1,15 @@
+﻿@using Services
+
+<div class="d-none">
+    @Projects
+</div>
+
+@code {
+    public ICollection<ProjectTaskListVM> Projects { get; set; }
+
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        Client client = new Client("https://localhost:44360");
+        Projects = await client.GetAllProjectsWithTasksAsync(false);
+    }
+}
