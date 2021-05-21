@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProjectManagement.Application;
 using ProjectManagement.Persistence;
+using Microsoft.OpenApi.Models;
+using ProjectManagement.Identity.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +33,7 @@ namespace ProjectManagement.Api
             // Add services from other layers
             services.AddApplicationServices();
             services.AddPersistenceServices(Configuration);
+            services.AddIdentityService(Configuration);
 
             // Support for working with controllers
             services.AddControllers();
@@ -52,15 +55,22 @@ namespace ProjectManagement.Api
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            
+
+            // Authentication
+            app.UseAuthentication();
+
             // Swagger
             app.UseSwagger();
-            app.UseSwaggerUI(x => 
+            app.UseSwaggerUI(x =>
             {
                 x.SwaggerEndpoint("/swagger/v1/swagger.json", "ProjectManagement API");
             });
 
             app.UseCors("Open");
+
+            // Authorization
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 // Enable routing to controllers
@@ -68,16 +78,47 @@ namespace ProjectManagement.Api
             });
         }
 
-        // Swagger documentation
+        // Swagger documentation & security
         private void AddSwagger(IServiceCollection services)
         {
-            services.AddSwaggerGen(x =>
+            services.AddSwaggerGen(options =>
             {
-                x.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = @"JWT Auth header using Bearer scheme. \n
+                                Enter 'Bearer' and then your token in the input below. \n
+                                Example: Bearer 3245ghder",
+                    Name = "Authorization",
+                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+
+                        },
+                        new List<string>()
+                    }
+                    });
+
+                options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1.0",
                     Title = "ProjectManagement API",
                 });
+
             });
         }
     }

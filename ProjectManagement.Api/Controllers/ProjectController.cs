@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagement.Application.Features.Projects;
@@ -25,6 +26,7 @@ namespace ProjectManagement.Api.Controllers
         }
 
         // Get all projects
+        [Authorize]
         [HttpGet("all", Name = "GetAllProjects")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<ProjectListVM>>> GetAllProjects()
@@ -34,6 +36,7 @@ namespace ProjectManagement.Api.Controllers
         }
 
         // Get all projects with tasks
+        [Authorize]
         [HttpGet("allwithtasks", Name = "GetAllProjectsWithTasks")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<ProjectTaskListVM>>> GetAllProjectsWithTasks(bool includeHistory)

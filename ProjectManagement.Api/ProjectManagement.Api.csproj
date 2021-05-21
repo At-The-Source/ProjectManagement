@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProjectManagement.Application\ProjectManagement.Application.csproj" />
+    <ProjectReference Include="..\ProjectManagement.Identity\ProjectManagement.Identity.csproj" />
     <ProjectReference Include="..\ProjectManagement.Persistence\ProjectManagement.Persistence.csproj" />
   </ItemGroup>
 
