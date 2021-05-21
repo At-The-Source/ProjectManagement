@@ -1,22 +1,27 @@
-﻿@layout LoginLayout
-
+﻿@using ProjectManagement.App.Contracts
+@using ProjectManagement.App.ViewModels
+@using Microsoft.AspNetCore.Components 
+@page "/login" 
+@layout LoginLayout
+@inject NavigationManager NavigationManager
+@inject IAuthenticationService AuthenticationService
 
 <div class="card text-center">
     <div class="card-header">Login</div>
     <div class="card-body">
-        <form class="login100-form validate-form">
+        <EditForm Model="@LoginViewModel" OnValidSubmit="ValidSubmit">
             <span class="login100-form-title">
                 Member Login
             </span>
             <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                <input class="input100" type="text" name="email" placeholder="Email">
+                <InputText id="userName"  @bind-Value="LoginViewModel.Email"></InputText>
                 <span class="focus-input100"></span>
                 <span class="symbol-input100">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
                 </span>
             </div>
             <div class="wrap-input100 validate-input" data-validate="Password is required">
-                <input class="input100" type="password" name="pass" placeholder="Password">
+                <InputText type="password" id="password" @bind-Value="@LoginViewModel.Password"></InputText>
                 <span class="focus-input100"></span>
                 <span class="symbol-input100">
                     <i class="fa fa-lock" aria-hidden="true"></i>
@@ -41,7 +46,27 @@
                     <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                 </a>
             </div>
-        </form>
+        </EditForm>
     </div>
-    <div class="card-footer text-muted"></div>
+    <div class="card-footer">@Message</div>
 </div>
+
+
+@code{
+    public LoginViewModel LoginViewModel { get; set; }
+    public string Message { get; set; }
+
+    protected override void OnInitialized()
+    {
+        LoginViewModel = new LoginViewModel();
+    }
+
+    protected async void ValidSubmit()
+    {
+        if (await AuthenticationService.Authenticate(LoginViewModel.Email, LoginViewModel.Password))
+        {
+            NavigationManager.NavigateTo("index");
+        }
+        Message = "Username/password combination not known";
+    }
+}
