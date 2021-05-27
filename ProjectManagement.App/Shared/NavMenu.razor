@@ -1,4 +1,7 @@
 ﻿@using Services
+@using ProjectManagement.App.Contracts 
+@using ProjectManagement.App.ViewModels 
+@inject IProjectDataService ProjectDataService 
 
 <div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">Project Management</a>
@@ -7,49 +10,58 @@
     </button>
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="currentproject">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Projects
-            </NavLink>
-        </li>
-    </ul>
-    @if (Projects == null)
-    {
-        <p>Loading projects...</p>
-    }
-    else
-    {
-        <ul class="list-group">
-
-            @foreach (var project in Projects)
-            {
-                <li class="list-group-item border-0">
-                    <a class="text-white" @onclick="@(() => Layout.Title = project.ProjectName)" href="CurrentProject/@project.ProjectId">
-                        <span class="oi oi-list-rich" aria-hidden="true"></span> @project.ProjectName
-                    </a>
+<AuthorizeView>
+    <Authorized>
+        <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+            <ul class="nav flex-column">
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Home
+                    </NavLink>
                 </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="counter">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Add Project
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="fetchdata">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="currentproject">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Projects
+                    </NavLink>
+                </li>
+            </ul>
+            @if (Projects == null)
+            {
+                <p>Loading projects...</p>
             }
-        </ul>
-    }
+            else
+            {
+                <ul class="list-group">
 
-</div>
+                    @foreach (var project in Projects)
+                    {
+                        <li class="list-group-item border-0">
+                            <a class="text-white" @onclick="@(() => Layout.Title = project.ProjectName)" href="CurrentProject/@project.ProjectId">
+                                <span class="oi oi-list-rich" aria-hidden="true"></span> @project.ProjectName
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        
+    </NotAuthorized>
+</AuthorizeView>
+
+
 
 <style>
     .list-group-item {
@@ -74,12 +86,14 @@
         collapseNavMenu = !collapseNavMenu;
     }
 
-    public ICollection<ProjectTaskListVM> Projects { get; set; }
+    public ICollection<ProjectViewModel> Projects { get; set; }
 
     protected override async System.Threading.Tasks.Task OnInitializedAsync()
     {
-        Client client = new Client("https://localhost:44360");
-        Projects = await client.GetAllProjectsWithTasksAsync(false);
+        Projects = await ProjectDataService.GetAllProjects();
+
+        //Client client = new Client("https://localhost:44360");
+        //Projects = await client.GetAllProjectsWithTasksAsync(false);
     }
 
 }

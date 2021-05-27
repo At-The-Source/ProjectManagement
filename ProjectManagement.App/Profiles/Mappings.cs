@@ -12,10 +12,15 @@ namespace ProjectManagement.App.Profiles
     {
         public Mappings()
         {
+            // Projects
             CreateMap<ProjectListVM, ProjectViewModel>().ReverseMap();
             CreateMap<ProjectTaskDTO, TaskNestedViewModel>().ReverseMap();
             CreateMap<ProjectTaskListVM, ProjectTaskViewModel>().ReverseMap();
 
+            // Tasks
+            CreateMap<SpecificTaskVM, SpecificTaskViewModel>().ReverseMap();
+            CreateMap<SpecificTaskViewModel, CreateTaskCommand>().ReverseMap();
+            CreateMap<SpecificTaskViewModel, UpdateTaskCommand>().ReverseMap();
         }
     }
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProjectManagement.App.Services
 {
-    //public partial interface IClient
-    //{
-    //    public HttpClient HttpClient { get; }
-    //}
+    public partial interface IClient
+    {
+        public HttpClient HttpClient { get; }
+    }
 }

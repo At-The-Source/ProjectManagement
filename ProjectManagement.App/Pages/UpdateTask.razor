@@ -1,0 +1,59 @@
+﻿@page "/updatetask/{taskid}"
+@using ProjectManagement.App.Services
+@using ProjectManagement.App.Contracts
+@using ProjectManagement.App.ViewModels
+@inject ITaskDataService TaskDataService
+
+<h5>Update task</h5>
+
+<EditForm Model="@SpecificTaskViewModel" OnValidSubmit="@SubmitTaskUpdate">
+    <div class="form-group">
+        <label for="nameInput">Name</label>
+        <InputText type="text" class="form-control" id="nameInput" @bind-Value="@SpecificTaskViewModel.TaskName"></InputText>
+        <ValidationMessage For="@(() => SpecificTaskViewModel.TaskName)" />
+    </div>
+    <div class="form-group">
+        <label for="descriptionInput">Description</label>
+        <InputText type="text" class="form-control" id="descriptionInput" @bind-Value="@SpecificTaskViewModel.Description"></InputText>
+        <ValidationMessage For="@(() => SpecificTaskViewModel.Description)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <ValidationSummary></ValidationSummary>
+</EditForm>
+
+<div>
+    <button class="btn btn-danger" @onclick="DeleteTask">Delete Task</button>
+</div>
+
+
+@code {
+    public string CurrentProjectId { get; set; }
+    public SpecificTaskViewModel SpecificTaskViewModel { get; set; }
+
+    [Parameter]
+    public string TaskId { get; set; }
+    private Guid CurrentTaskId = Guid.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var parseSuccessful = Guid.TryParse(TaskId, out CurrentTaskId);
+        if (parseSuccessful)
+        {
+            SpecificTaskViewModel = await TaskDataService.GetTaskById(CurrentTaskId);
+
+        }
+    }
+
+    protected async Task SubmitTaskUpdate()
+    {
+        // SpecificTaskViewModel.ProjectId = Guid.Parse();
+        ApiResponse<Guid> apiResponse;
+        apiResponse = await TaskDataService.UpdateTask(SpecificTaskViewModel);
+    }
+
+    protected async Task DeleteTask()
+    {
+        var apiResponse = await TaskDataService.DeleteTask(CurrentTaskId);
+    }
+}

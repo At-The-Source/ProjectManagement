@@ -1,6 +1,9 @@
 ﻿@page "/currentproject/{projectid:guid}"
 @using Services
+@using Contracts
+@using ViewModels
 @inject NavigationManager NavigationManager
+@inject IProjectDataService ProjectDataService
 
 @if (Projects == null)
 {
@@ -15,7 +18,6 @@ else
                 <th scope="col"></th>
                 <th scope="col">Task name</th>
                 <th scope="col">Description</th>
-                <th scope="col"></th>
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -36,10 +38,7 @@ else
                                 @task.Description
                             </td>
                             <td>
-                                <button class="btn btn-outline-success">Edit</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-outline-danger">Delete</button>
+                                <button class="btn btn-outline-success" @onclick="() => UpdateTask(task.TaskId)">Edit</button>
                             </td>
                         </tr>
                     }
@@ -56,18 +55,24 @@ else
     [Parameter]
     public Guid? ProjectId { get; set; }
 
-    public ICollection<ProjectTaskListVM> Projects { get; set; }
+    public ICollection<ProjectTaskViewModel> Projects { get; set; }
     private int taskAmount = 0;
 
     protected void AddTask()
     {
         NavigationManager.NavigateTo("/AddTask");
     }
-
+    protected void UpdateTask(Guid id)
+    {
+        var taskid = id.ToString();
+        NavigationManager.NavigateTo("/updatetask/" + taskid);
+    }
 
     protected override async System.Threading.Tasks.Task OnInitializedAsync()
     {
-        Client client = new Client("https://localhost:44360");
-        Projects = await client.GetAllProjectsWithTasksAsync(false);
+        Projects = await ProjectDataService.GetAllProjectsWithTasks();
+
+        //Client client = new Client("https://localhost:44360");
+        //Projects = await client.GetAllProjectsWithTasksAsync(false);
     }
 }

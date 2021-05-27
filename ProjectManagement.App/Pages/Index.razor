@@ -1,43 +1,17 @@
 ﻿@page "/"
-@using Microsoft.AspNetCore.Components.Authorization
-@using ProjectManagement.App.Contracts
-@using ProjectManagement.App.Authentication 
-@inject AuthenticationStateProvider AuthenticationStateProvider
-@inject NavigationManager NavigationManager
-@inject IAuthenticationService AuthenticationService
-
 
 
 <h3>Welcome to the Project Management App.</h3>
 <AuthorizeView>
     <Authorized>
-        <button @onclick="LogOut">Logout</button>
+        <p>Select a project to continue working.</p>
+        <button @onclick="LogOut" class="btn btn-primary">Logout</button>
     </Authorized>
     <NotAuthorized>
-        <button @onclick="NavigateToLogin" class="btn btn-primary">Log in</button>
+        <p>Create a project to begin.</p>
+        <button @onclick="NavigateToLogin" class="btn btn-primary m-2">Log in</button>
         <br />
         <button @onclick="NavigateToRegister" class="btn btn-primary">Register</button>
     </NotAuthorized>
 </AuthorizeView>
 
-
-
-@code {
-    protected async override Task OnInitializedAsync()
-    {
-        await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).GetAuthenticationStateAsync();
-    }
-
-    protected void NavigateToLogin()
-    {
-        NavigationManager.NavigateTo("login");
-    }
-    protected void NavigateToRegister()
-    {
-        NavigationManager.NavigateTo("register");
-    }
-    protected async void LogOut()
-    {
-        await AuthenticationService.LogOut();
-    }
-}

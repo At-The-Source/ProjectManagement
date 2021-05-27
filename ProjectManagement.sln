@@ -29,11 +29,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagement.Persisten
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagement.API.IntegrationTests", "ProjectManagement.API.IntegrationTests\ProjectManagement.API.IntegrationTests.csproj", "{2BB0E10A-B36D-47C6-9CBC-CE6052C58D07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagement.UI", "ProjectManagement.UI\ProjectManagement.UI.csproj", "{FFF62676-4CB1-43CA-BAAB-4AA75026AB6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagement.UI", "ProjectManagement.UI\ProjectManagement.UI.csproj", "{FFF62676-4CB1-43CA-BAAB-4AA75026AB6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagement.App", "ProjectManagement.App\ProjectManagement.App.csproj", "{62A9CC77-7152-46B6-ADCC-F2B89FB62045}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagement.App", "ProjectManagement.App\ProjectManagement.App.csproj", "{62A9CC77-7152-46B6-ADCC-F2B89FB62045}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagement.Identity", "ProjectManagement.Identity\ProjectManagement.Identity.csproj", "{1D2DFE3F-D34C-435F-AA58-5B96D381B6BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagement.Identity", "ProjectManagement.Identity\ProjectManagement.Identity.csproj", "{1D2DFE3F-D34C-435F-AA58-5B96D381B6BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

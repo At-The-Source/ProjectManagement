@@ -21,9 +21,9 @@ namespace ProjectManagement.App.Pages
         {
             //ICollection<ProjectViewModel> projz = await ProjectDataService.GetAllProjects();
             //Projects = await ProjectDataService.GetAllProjects();
-            Client client = new Client("https://localhost:44360");
-            Projects = await client.GetAllProjectsAsync();
-            Projects2 = await client.GetAllProjectsWithTasksAsync(false);
+            //Client client = new Client("https://localhost:44360");
+            //Projects = await client.GetAllProjectsAsync();
+            //Projects2 = await client.GetAllProjectsWithTasksAsync(false);
         }
     }
 }

@@ -64,6 +64,7 @@ namespace ProjectManagement.Api
             app.UseSwaggerUI(x =>
             {
                 x.SwaggerEndpoint("/swagger/v1/swagger.json", "ProjectManagement API");
+                x.RoutePrefix = string.Empty;
             });
 
             app.UseCors("Open");

@@ -9,5 +9,6 @@ namespace ProjectManagement.App.Contracts
     public interface IProjectDataService
     {
         Task<List<ProjectViewModel>> GetAllProjects();
+        Task<List<ProjectTaskViewModel>> GetAllProjectsWithTasks();
     }
 }
