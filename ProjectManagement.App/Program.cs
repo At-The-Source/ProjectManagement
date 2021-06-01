@@ -14,7 +14,7 @@ using AutoMapper;
 using ProjectManagement.App.Contracts;
 using Microsoft.AspNetCore.Components.Authorization;
 using ProjectManagement.App.Authentication;
-
+using ProjectManagement.App.Services.DataServices;
 
 namespace ProjectManagement.App
 {
@@ -41,6 +41,7 @@ namespace ProjectManagement.App
             builder.Services.AddHttpClient<IClient, Client>(client => client.BaseAddress = new Uri("https://localhost:44360"));
             
             builder.Services.AddScoped<IProjectDataService, ProjectDataService>();
+            builder.Services.AddScoped<ITaskDataService, TaskDataService>();
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
             await builder.Build().RunAsync();
         }

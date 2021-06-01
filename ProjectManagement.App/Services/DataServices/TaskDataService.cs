@@ -19,18 +19,44 @@ namespace ProjectManagement.App.Services.DataServices
             _mapper = mapper;
         }
 
-        public async Task<ApiResponse<Guid>> CreateTask(SpecificTaskViewModel specificTaskViewModel)
+        public async Task<ApiResponse<TaskDto>> CreateTask(SpecificTaskViewModel specificTaskViewModel)
         {
+            //try
+            //{
+            //    CreateTaskCommand createTask = _mapper.Map<CreateTaskCommand>(specificTaskViewModel);
+            //    var task = await _client.AddTaskAsync(createTask);
+            //    return new ApiResponse<Guid>() { Data = task, Success = true };
+            //}
+            //catch (ApiException e)
+            //{
+
+            //    return ConvertApiExceptions<Guid>(e);
+            //}
+
             try
             {
+                ApiResponse<TaskDto> response = new ApiResponse<TaskDto>();
                 CreateTaskCommand createTask = _mapper.Map<CreateTaskCommand>(specificTaskViewModel);
-                var task = await _client.AddTaskAsync(createTask);
-                return new ApiResponse<Guid>() { Data = task, Success = true };
+                var taskResponse = await _client.AddTaskAsync(createTask);
+                if (taskResponse.Success)
+                {
+                    response.Data = _mapper.Map<TaskDto>(taskResponse.Task);
+                    response.Success = true;
+                }
+                else
+                {
+                    response.Data = null;
+                    foreach (var error in taskResponse.ValidationErrors)
+                    {
+                        response.ValidationErrors += error + Environment.NewLine;
+                    }
+                }
+                return response;
             }
             catch (ApiException e)
             {
 
-                return ConvertApiExceptions<Guid>(e);
+                return ConvertApiExceptions<TaskDto>(e);
             }
         }
 

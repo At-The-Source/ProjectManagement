@@ -1,4 +1,4 @@
-﻿@page "/currentproject/{projectid:guid}"
+﻿@page "/currentproject/{currentprojectid:guid}"
 @using Services
 @using Contracts
 @using ViewModels
@@ -11,7 +11,7 @@
 }
 else
 {
-    <button class="btn btn-success mb-2" @onclick="AddTask">Add task</button>
+    <button class="btn btn-success mb-2" @onclick="() => AddTask(CurrentProjectId)">Add task</button>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -24,7 +24,7 @@ else
         <tbody>
             @foreach (var proj in Projects)
             {
-                if (proj.ProjectId == ProjectId)
+                if (proj.ProjectId == CurrentProjectId)
                 {
                     foreach (var task in proj.Tasks)
                     {
@@ -53,14 +53,15 @@ else
 
 @code {
     [Parameter]
-    public Guid? ProjectId { get; set; }
+    public Guid? CurrentProjectId { get; set; }
 
     public ICollection<ProjectTaskViewModel> Projects { get; set; }
     private int taskAmount = 0;
 
-    protected void AddTask()
+    protected void AddTask(Guid? id)
     {
-        NavigationManager.NavigateTo("/AddTask");
+        var projectId = id.ToString();
+        NavigationManager.NavigateTo("/addtask/" + projectId);
     }
     protected void UpdateTask(Guid id)
     {
@@ -71,8 +72,5 @@ else
     protected override async System.Threading.Tasks.Task OnInitializedAsync()
     {
         Projects = await ProjectDataService.GetAllProjectsWithTasks();
-
-        //Client client = new Client("https://localhost:44360");
-        //Projects = await client.GetAllProjectsWithTasksAsync(false);
     }
 }

@@ -10,7 +10,7 @@ namespace ProjectManagement.App.Contracts
     public interface ITaskDataService
     {
         Task<SpecificTaskViewModel> GetTaskById(Guid id);
-        Task<ApiResponse<Guid>> CreateTask(SpecificTaskViewModel specificTaskViewModel);
+        Task<ApiResponse<TaskDto>> CreateTask(SpecificTaskViewModel specificTaskViewModel);
         Task<ApiResponse<Guid>> DeleteTask(Guid id);
         Task<ApiResponse<Guid>> UpdateTask(SpecificTaskViewModel specificTaskViewModel);
     }

@@ -23,7 +23,7 @@
 </EditForm>
 
 <div>
-    <button class="btn btn-danger" @onclick="DeleteTask">Delete Task</button>
+    <button class="btn btn-danger mt-2" @onclick="DeleteTask">Delete Task</button>
 </div>
 
 
@@ -37,11 +37,11 @@
 
     protected override async Task OnInitializedAsync()
     {
+        SpecificTaskViewModel = new SpecificTaskViewModel();
         var parseSuccessful = Guid.TryParse(TaskId, out CurrentTaskId);
         if (parseSuccessful)
         {
             SpecificTaskViewModel = await TaskDataService.GetTaskById(CurrentTaskId);
-
         }
     }
 

@@ -1,25 +1,56 @@
-﻿@page "/addtask"
+﻿@page "/addtask/{currentprojectid:guid}"
 @using ProjectManagement.App.Services
 @using ProjectManagement.App.Contracts
 @using ProjectManagement.App.ViewModels
 @inject ITaskDataService TaskDataService
 
-<h5>Add new task</h5>
+<h5 class="mb-4">Add new task</h5>
 
-<EditForm Model="@SpecificTaskViewModel">
-
+<EditForm Model="@SpecificTaskViewModel" OnValidSubmit="@AddTaskSubmit">
+    <div>
+        <label for="taskName" class="col">Task Name</label>
+        <InputText id="taskName" class="form-control col-6" @bind-Value="@SpecificTaskViewModel.TaskName"></InputText>
+        <ValidationMessage clas="col" For="@(() => SpecificTaskViewModel.TaskName)" />
+    </div>
+    <div>
+        <label for="taskDescription" class="col">Task Description</label>
+        <InputText id="taskDescription" class="form-control col-6" @bind-Value="@SpecificTaskViewModel.Description"></InputText>
+        <ValidationMessage clas="col" For="@(() => SpecificTaskViewModel.Description)" />
+    </div>
+    <div class="">
+        <InputSelect id="taskProjectId" @bind-Value="@SpecificTaskViewModel.ProjectId">
+            <option value="@CurrentProjectId">@CurrentProjectId</option>
+        </InputSelect>
+    </div>
+    <button type="submit" class="btn btn-primary mt-4">Save Task</button>
 </EditForm>
+
+@Message
 
 
 
 @code {
-    public SpecificTaskViewModel SpecificTaskViewModel { get; set; }
+    [Parameter]
+    public Guid CurrentProjectId { get; set; }
 
+
+    public SpecificTaskViewModel SpecificTaskViewModel { get; set; }
+    public string Message { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        SpecificTaskViewModel = new SpecificTaskViewModel();
+    }
 
-        //Client client = new Client("https://localhost:44360");
-        //SpecificTaskViewModel = await client.GetTaskByIdAsync(TaskId);
+    protected async Task AddTaskSubmit()
+    {
+        var response = await TaskDataService.CreateTask(SpecificTaskViewModel);
+        HandleApiResponse(response);
+    }
+
+    private void HandleApiResponse(ApiResponse<TaskDto> response)
+    {
+        if (response.Success) { Message = "Task has been added."; }
+        else { Message = response.Message; }
     }
 }

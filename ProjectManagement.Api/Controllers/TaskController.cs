@@ -43,7 +43,7 @@ namespace ProjectManagement.Api.Controllers
 
         // Create new task
         [HttpPost(Name = "AddTask")]
-        public async Task<ActionResult<Guid>> CreateTask([FromBody] CreateTaskCommand createTaskCommand)
+        public async Task<ActionResult<CreateTaskCommandResponse>> CreateTask([FromBody] CreateTaskCommand createTaskCommand)
         {
             var res = await _mediator.Send(createTaskCommand);
             return Ok(res);
