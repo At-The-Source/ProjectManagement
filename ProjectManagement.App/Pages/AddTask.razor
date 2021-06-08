@@ -17,8 +17,8 @@
         <InputText id="taskDescription" class="form-control col-6" @bind-Value="@SpecificTaskViewModel.Description"></InputText>
         <ValidationMessage clas="col" For="@(() => SpecificTaskViewModel.Description)" />
     </div>
-    <div class="">
-        <InputSelect id="taskProjectId" @bind-Value="@SpecificTaskViewModel.ProjectId">
+    <div class="d-none">
+        <InputSelect id="taskProjectId" @bind-Value="@SelectedProjectId">
             <option value="@CurrentProjectId">@CurrentProjectId</option>
         </InputSelect>
     </div>
@@ -36,14 +36,17 @@
 
     public SpecificTaskViewModel SpecificTaskViewModel { get; set; }
     public string Message { get; set; }
+    public string SelectedProjectId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        SelectedProjectId = CurrentProjectId.ToString();
         SpecificTaskViewModel = new SpecificTaskViewModel();
     }
 
     protected async Task AddTaskSubmit()
     {
+        SpecificTaskViewModel.ProjectId = Guid.Parse(SelectedProjectId);
         var response = await TaskDataService.CreateTask(SpecificTaskViewModel);
         HandleApiResponse(response);
     }

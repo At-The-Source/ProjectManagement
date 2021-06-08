@@ -21,7 +21,7 @@ namespace ProjectManagement.App.Pages
         [Inject]
         public IAuthenticationService AuthenticationService { get; set; }
 
-        protected override async Task OnInitializedAsync()
+        protected async Task OnInitializedAsync()
         {
             await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).GetAuthenticationStateAsync();
         }

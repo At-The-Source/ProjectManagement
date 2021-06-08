@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProjectManagement.Api.Exceptions;
 
 namespace ProjectManagement.Api
 {
@@ -66,6 +67,9 @@ namespace ProjectManagement.Api
                 x.SwaggerEndpoint("/swagger/v1/swagger.json", "ProjectManagement API");
                 x.RoutePrefix = string.Empty;
             });
+
+            // exception handler
+            app.UseCustomExceptionHandler();
 
             app.UseCors("Open");
 

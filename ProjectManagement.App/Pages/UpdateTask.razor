@@ -41,7 +41,7 @@
         var parseSuccessful = Guid.TryParse(TaskId, out CurrentTaskId);
         if (parseSuccessful)
         {
-            SpecificTaskViewModel = await TaskDataService.GetTaskById(CurrentTaskId);
+            //SpecificTaskViewModel = await TaskDataService.GetTaskById(CurrentTaskId);
         }
     }
 
