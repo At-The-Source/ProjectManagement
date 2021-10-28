@@ -21,18 +21,6 @@ namespace ProjectManagement.App.Services.DataServices
 
         public async Task<ApiResponse<TaskDto>> CreateTask(SpecificTaskViewModel specificTaskViewModel)
         {
-            //try
-            //{
-            //    CreateTaskCommand createTask = _mapper.Map<CreateTaskCommand>(specificTaskViewModel);
-            //    var task = await _client.AddTaskAsync(createTask);
-            //    return new ApiResponse<Guid>() { Data = task, Success = true };
-            //}
-            //catch (ApiException e)
-            //{
-
-            //    return ConvertApiExceptions<Guid>(e);
-            //}
-
             try
             {
                 ApiResponse<TaskDto> response = new ApiResponse<TaskDto>();

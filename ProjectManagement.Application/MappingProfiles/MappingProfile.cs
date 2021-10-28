@@ -42,6 +42,7 @@ namespace ProjectManagement.Application.MappingProfiles
             CreateMap<Domain.Entities.Task, ProjectTaskDTO>().ReverseMap();
             // Task commands
             CreateMap<Domain.Entities.Task, CreateTaskCommand>().ReverseMap();
+            CreateMap<Domain.Entities.Task, CreateTaskDto>().ReverseMap();
             CreateMap<Domain.Entities.Task, UpdateTaskCommand>().ReverseMap();
 
             // User queries

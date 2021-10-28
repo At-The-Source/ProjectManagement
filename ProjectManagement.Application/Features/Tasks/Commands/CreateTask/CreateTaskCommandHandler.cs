@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using ProjectManagement.Application.Contracts.Persistence;
 using System;
 using System.Collections.Generic;
@@ -14,23 +15,14 @@ namespace ProjectManagement.Application.Features.Tasks.Commands.CreateTask
     {
         private readonly IAsyncRepository<Domain.Entities.Task> _taskRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger<CreateTaskCommandHandler> _logger;
 
-        public CreateTaskCommandHandler(IAsyncRepository<Domain.Entities.Task> taskRepository, IMapper mapper)
+        public CreateTaskCommandHandler(IAsyncRepository<Domain.Entities.Task> taskRepository, IMapper mapper, ILogger<CreateTaskCommandHandler> logger)
         {
             _taskRepository = taskRepository;
             _mapper = mapper;
+            _logger = logger;
         }
-
-        //public async Task<Guid> Handle(CreateTaskCommand request, CancellationToken cancellationToken)
-        //{
-        //    var validator = new CreateTaskCommandValidator();
-        //    var result = await validator.ValidateAsync(request);
-        //    if (result.Errors.Count > 0) { throw new Exceptions.ValidationException(result); }
-
-        //    var task = _mapper.Map<Domain.Entities.Task>(request);
-        //    task = await _taskRepository.AddAsync(task);
-        //    return task.TaskId;
-        //}
 
         public async Task<CreateTaskCommandResponse> Handle(CreateTaskCommand request, CancellationToken cancellationToken)
         {
@@ -48,9 +40,23 @@ namespace ProjectManagement.Application.Features.Tasks.Commands.CreateTask
             }
             if (response.Success)
             {
-                var newTask = new Domain.Entities.Task() { TaskName = request.TaskName, Description = request.Description };
-                newTask = await _taskRepository.AddAsync(newTask);
-                response.Task = _mapper.Map<CreateTaskDto>(newTask);
+                try
+                {
+                    var newTask = new Domain.Entities.Task() 
+                    { 
+                        TaskName = request.TaskName, 
+                        Description = request.Description, 
+                        TaskId = request.TaskId, 
+                        ProjectId = request.ProjectId 
+                    };
+                    newTask = await _taskRepository.AddAsync(newTask);
+                    response.Task = _mapper.Map<CreateTaskDto>(newTask);
+                }
+                catch (Exception e)
+                {
+
+                    _logger.LogError($"Adding task failed due to the following: {e.Message}");
+                }
             }
             return response;
         }

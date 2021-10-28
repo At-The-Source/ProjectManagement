@@ -38,7 +38,7 @@
     public string Message { get; set; }
     public string SelectedProjectId { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         SelectedProjectId = CurrentProjectId.ToString();
         SpecificTaskViewModel = new SpecificTaskViewModel();
@@ -46,6 +46,8 @@
 
     protected async Task AddTaskSubmit()
     {
+        Guid id = Guid.NewGuid();
+        SpecificTaskViewModel.TaskId = id;
         SpecificTaskViewModel.ProjectId = Guid.Parse(SelectedProjectId);
         var response = await TaskDataService.CreateTask(SpecificTaskViewModel);
         HandleApiResponse(response);

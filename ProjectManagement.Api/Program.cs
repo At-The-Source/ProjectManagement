@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ProjectManagement.Identity.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,17 @@ namespace ProjectManagement.Api
     {
         public async static Task Main(string[] args)
         {
+            // logging
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(config)
+                .WriteTo.File("Logging/log-.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
+            // startup w. identity
             var host = CreateHostBuilder(args).Build();
             using (var scope = host.Services.CreateScope())
             {
