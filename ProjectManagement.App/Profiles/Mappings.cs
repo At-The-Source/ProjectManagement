@@ -20,6 +20,7 @@ namespace ProjectManagement.App.Profiles
             // Tasks
             CreateMap<SpecificTaskVM, SpecificTaskViewModel>().ReverseMap();
             CreateMap<SpecificTaskViewModel, CreateTaskCommand>().ReverseMap();
+            CreateMap<CreateTaskDto, TaskDto>().ReverseMap();
             CreateMap<SpecificTaskViewModel, UpdateTaskCommand>().ReverseMap();
         }
     }

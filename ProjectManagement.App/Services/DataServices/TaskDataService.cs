@@ -52,7 +52,7 @@ namespace ProjectManagement.App.Services.DataServices
         {
             try
             {
-                await _client.DeleteProjectAsync(taskId);
+                await _client.DeleteTaskAsync(taskId);
                 return new ApiResponse<Guid>() { Success = true };
             }
             catch (ApiException e)

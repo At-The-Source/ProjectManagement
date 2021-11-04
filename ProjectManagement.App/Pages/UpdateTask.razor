@@ -2,6 +2,7 @@
 @using ProjectManagement.App.Services
 @using ProjectManagement.App.Contracts
 @using ProjectManagement.App.ViewModels
+@inject NavigationManager NavigationManager
 @inject ITaskDataService TaskDataService
 
 <h5>Update task</h5>
@@ -26,34 +27,48 @@
     <button class="btn btn-danger mt-2" @onclick="DeleteTask">Delete Task</button>
 </div>
 
+@Message
 
 @code {
     public string CurrentProjectId { get; set; }
     public SpecificTaskViewModel SpecificTaskViewModel { get; set; }
+    public string Message { get; set; }
 
     [Parameter]
     public string TaskId { get; set; }
     private Guid CurrentTaskId = Guid.Empty;
+    // [Parameter]
+    // public string ProjId { get; set; }
+    // private Guid CurrentProjId = Guid.Empty;
 
     protected override async Task OnInitializedAsync()
     {
         SpecificTaskViewModel = new SpecificTaskViewModel();
-        var parseSuccessful = Guid.TryParse(TaskId, out CurrentTaskId);
-        if (parseSuccessful)
+        if (Guid.TryParse(TaskId, out CurrentTaskId))
         {
-            //SpecificTaskViewModel = await TaskDataService.GetTaskById(CurrentTaskId);
+            SpecificTaskViewModel = await TaskDataService.GetTaskById(CurrentTaskId);
         }
     }
 
     protected async Task SubmitTaskUpdate()
     {
-        // SpecificTaskViewModel.ProjectId = Guid.Parse();
-        ApiResponse<Guid> apiResponse;
-        apiResponse = await TaskDataService.UpdateTask(SpecificTaskViewModel);
+        var apiResponse = await TaskDataService.UpdateTask(SpecificTaskViewModel);
+        HandleApiResponse(apiResponse);
     }
 
     protected async Task DeleteTask()
     {
         var apiResponse = await TaskDataService.DeleteTask(CurrentTaskId);
+        HandleApiResponse(apiResponse);
+        // if (Guid.TryParse(ProjId, out CurrentProjId))
+        // {
+        //     NavigationManager.NavigateTo("/currentproject/" + CurrentProjectId);
+        // }
+    }
+    
+    private void HandleApiResponse(ApiResponse<Guid> response)
+    {
+        if (response.Success) { Message = "Task has been updated/deleted."; }
+        else { Message = response.Message; }
     }
 }

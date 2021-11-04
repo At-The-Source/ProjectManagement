@@ -66,6 +66,7 @@ else
     protected void UpdateTask(Guid id)
     {
         var taskid = id.ToString();
+        var projId = CurrentProjectId.ToString();
         NavigationManager.NavigateTo("/updatetask/" + taskid);
     }
 

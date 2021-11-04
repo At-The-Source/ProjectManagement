@@ -1,8 +1,10 @@
 ﻿@using Services
 @using ProjectManagement.App.Contracts 
 @using ProjectManagement.App.ViewModels 
+@using ProjectManagement.App.Authentication
 @inject IProjectDataService ProjectDataService 
-
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject  IAuthenticationService AuthenticationService
 <div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">Project Management</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -90,10 +92,11 @@
 
     protected override async System.Threading.Tasks.Task OnInitializedAsync()
     {
-        Projects = await ProjectDataService.GetAllProjects();
-
-        //Client client = new Client("https://localhost:44360");
-        //Projects = await client.GetAllProjectsWithTasksAsync(false);
+        var loggedIn = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        if (loggedIn.User.Identity.IsAuthenticated)
+        {
+            Projects = await ProjectDataService.GetAllProjects();
+        }
     }
 
 }
