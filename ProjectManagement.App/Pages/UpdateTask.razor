@@ -68,7 +68,7 @@
     
     private void HandleApiResponse(ApiResponse<Guid> response)
     {
-        if (response.Success) { Message = "Task has been updated/deleted."; }
+        if (response.Success) { Message = "Done."; }
         else { Message = response.Message; }
     }
 }

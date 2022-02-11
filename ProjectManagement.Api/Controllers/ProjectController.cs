@@ -54,9 +54,8 @@ namespace ProjectManagement.Api.Controllers
         }
 
         // Create new project
-        // TODO: project POST should return dto containing a command response, now it is temporarly returning an id.
         [HttpPost(Name = "AddProject")]
-        public async Task<ActionResult<Guid>> CreateProject([FromBody] CreateProjectCommand createProjectCommand)
+        public async Task<ActionResult<CreateProjectCommandResponse>> CreateProject([FromBody] CreateProjectCommand createProjectCommand)
         {
             var createResponse = await _mediator.Send(createProjectCommand);
             return Ok(createResponse);

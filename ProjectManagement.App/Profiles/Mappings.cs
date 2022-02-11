@@ -16,6 +16,7 @@ namespace ProjectManagement.App.Profiles
             CreateMap<ProjectListVM, ProjectViewModel>().ReverseMap();
             CreateMap<ProjectTaskDTO, TaskNestedViewModel>().ReverseMap();
             CreateMap<ProjectTaskListVM, ProjectTaskViewModel>().ReverseMap();
+            CreateMap<ProjectViewModel, CreateProjectCommand>().ReverseMap();
 
             // Tasks
             CreateMap<SpecificTaskVM, SpecificTaskViewModel>().ReverseMap();

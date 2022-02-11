@@ -13,6 +13,7 @@ using Xunit;
 using ProjectManagement.Application.Features.Projects.Commands.CreateProject;
 using System.Threading;
 using FluentAssertions;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace ProjectManagement.Application.UnitTests.Commands.CreateProject
 {
@@ -37,7 +38,7 @@ namespace ProjectManagement.Application.UnitTests.Commands.CreateProject
         public async System.Threading.Tasks.Task AddProjectTest()
         {
             // Arrange
-            var handler = new CreateProjectCommandHandler(_projectRepositoryMock.Object, _mapper);
+            var handler = new CreateProjectCommandHandler(_projectRepositoryMock.Object, _mapper, new NullLogger<CreateProjectCommandHandler>());
             await handler.Handle(new CreateProjectCommand() { ProjectName = "Testproject 1", Description = "TestDescription."}, CancellationToken.None);
             
             // Act

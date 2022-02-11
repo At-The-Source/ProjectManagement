@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31112.23
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1B797A76-D46D-4BCA-B617-EE73B729D6BD}"
 EndProject
@@ -28,8 +28,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagement.Persistence.IntegrationTests", "ProjectManagement.Persistence.IntegrationTests\ProjectManagement.Persistence.IntegrationTests.csproj", "{E6B0C587-D5D9-402B-A6C5-F07B63D15DD6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagement.API.IntegrationTests", "ProjectManagement.API.IntegrationTests\ProjectManagement.API.IntegrationTests.csproj", "{2BB0E10A-B36D-47C6-9CBC-CE6052C58D07}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagement.UI", "ProjectManagement.UI\ProjectManagement.UI.csproj", "{FFF62676-4CB1-43CA-BAAB-4AA75026AB6F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagement.App", "ProjectManagement.App\ProjectManagement.App.csproj", "{62A9CC77-7152-46B6-ADCC-F2B89FB62045}"
 EndProject
@@ -69,10 +67,6 @@ Global
 		{2BB0E10A-B36D-47C6-9CBC-CE6052C58D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BB0E10A-B36D-47C6-9CBC-CE6052C58D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BB0E10A-B36D-47C6-9CBC-CE6052C58D07}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FFF62676-4CB1-43CA-BAAB-4AA75026AB6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FFF62676-4CB1-43CA-BAAB-4AA75026AB6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FFF62676-4CB1-43CA-BAAB-4AA75026AB6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FFF62676-4CB1-43CA-BAAB-4AA75026AB6F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{62A9CC77-7152-46B6-ADCC-F2B89FB62045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{62A9CC77-7152-46B6-ADCC-F2B89FB62045}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62A9CC77-7152-46B6-ADCC-F2B89FB62045}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -97,7 +91,6 @@ Global
 		{0EA90133-4209-4753-976F-ACAEA91F4DE5} = {1B797A76-D46D-4BCA-B617-EE73B729D6BD}
 		{E6B0C587-D5D9-402B-A6C5-F07B63D15DD6} = {1B797A76-D46D-4BCA-B617-EE73B729D6BD}
 		{2BB0E10A-B36D-47C6-9CBC-CE6052C58D07} = {1B797A76-D46D-4BCA-B617-EE73B729D6BD}
-		{FFF62676-4CB1-43CA-BAAB-4AA75026AB6F} = {B3C3432D-B64B-4773-AB70-A7143D1E6EDA}
 		{62A9CC77-7152-46B6-ADCC-F2B89FB62045} = {B3C3432D-B64B-4773-AB70-A7143D1E6EDA}
 		{1D2DFE3F-D34C-435F-AA58-5B96D381B6BD} = {502C2B8F-4E81-4EBC-98D3-4135C873A0B3}
 	EndGlobalSection

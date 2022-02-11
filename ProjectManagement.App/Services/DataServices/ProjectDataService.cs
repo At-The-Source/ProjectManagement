@@ -18,6 +18,39 @@ namespace ProjectManagement.App.Services
             _mapper = mapper;
         }
 
+        public async Task<ApiResponse<ProjectDTO>> CreateProject(ProjectViewModel projectViewModel)
+        {
+            try
+            {
+                ApiResponse<ProjectDTO> response = new();
+                CreateProjectCommand createProject = _mapper.Map<CreateProjectCommand>(projectViewModel);
+                var projectResponse = await _client.AddProjectAsync(createProject);
+                if (projectResponse.Success)
+                {
+                    response.Data = _mapper.Map<ProjectDTO>(projectResponse.Project);
+                    response.Success = true;
+                }
+                else
+                {
+                    response.Data = null;
+                    foreach (var error in projectResponse.ValidationErrors)
+                    {
+                        response.ValidationErrors += error + Environment.NewLine;
+                    }
+                }
+                return response;
+            }
+            catch (ApiException e)
+            {
+                return ConvertApiExceptions<ProjectDTO>(e);
+            }
+        }
+
+        public Task<ApiResponse<Guid>> DeleteProject(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<ProjectViewModel>> GetAllProjects()
         {
             await AddBearerToken();
@@ -32,6 +65,16 @@ namespace ProjectManagement.App.Services
             var projWTasks = await _client.GetAllProjectsWithTasksAsync(false);
             var mappedProjects = _mapper.Map<ICollection<ProjectTaskViewModel>>(projWTasks);
             return mappedProjects.ToList();
+        }
+
+        public Task<ProjectViewModel> GetProjectById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ApiResponse<Guid>> UpdateProject(ProjectViewModel projectViewModel)
+        {
+            throw new NotImplementedException();
         }
     }
 }

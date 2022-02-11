@@ -1,0 +1,47 @@
+﻿@page "/addproject"
+@using ProjectManagement.App.Services
+@using ProjectManagement.App.Contracts
+@using ProjectManagement.App.ViewModels
+@inject IProjectDataService ProjectDataService
+
+<h5 class="mb-4">Add new project</h5>
+
+<EditForm Model="@ProjectViewModel" OnValidSubmit="@AddProjectSubmit">
+    <div>
+        <label for="projectName" class="col">Project Name</label>
+        <InputText id="projectName" class="form-control col-6" @bind-Value="@ProjectViewModel.ProjectName"></InputText>
+        <ValidationMessage clas="col" For="@(() => ProjectViewModel.ProjectName)" />
+    </div>
+    <div>
+        <label for="taskDescription" class="col">Project Description</label>
+        <InputText id="taskDescription" class="form-control col-6" @bind-Value="@ProjectViewModel.Description"></InputText>
+        <ValidationMessage clas="col" For="@(() => ProjectViewModel.Description)" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-4">Save project</button>
+</EditForm>
+
+@Message
+
+@code {
+    public ProjectViewModel ProjectViewModel { get; set; }
+    public string Message { get; set; }
+
+    protected override void OnInitialized()
+    {
+        ProjectViewModel = new();
+    }
+
+    protected async Task AddProjectSubmit()
+    {
+        Guid id = Guid.NewGuid();
+        ProjectViewModel.ProjectId = id;
+        var response = await ProjectDataService.CreateProject(ProjectViewModel);
+        HandleApiResponse(response);
+    }
+
+    private void HandleApiResponse(ApiResponse<ProjectDTO> response)
+    {
+        if (response.Success) { Message = "Project has been added."; }
+        else { Message = response.Message; }
+    }
+}
