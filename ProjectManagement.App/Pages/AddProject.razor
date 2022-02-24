@@ -37,6 +37,7 @@
         ProjectViewModel.ProjectId = id;
         var response = await ProjectDataService.CreateProject(ProjectViewModel);
         HandleApiResponse(response);
+        this.StateHasChanged();
     }
 
     private void HandleApiResponse(ApiResponse<ProjectDTO> response)

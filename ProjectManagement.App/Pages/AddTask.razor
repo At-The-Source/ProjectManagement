@@ -3,6 +3,7 @@
 @using ProjectManagement.App.Contracts
 @using ProjectManagement.App.ViewModels
 @inject ITaskDataService TaskDataService
+@inject NavigationManager NavigationManager
 
 <h5 class="mb-4">Add new task</h5>
 
@@ -51,6 +52,7 @@
         SpecificTaskViewModel.ProjectId = Guid.Parse(SelectedProjectId);
         var response = await TaskDataService.CreateTask(SpecificTaskViewModel);
         HandleApiResponse(response);
+        NavigationManager.NavigateTo("currentproject/" + SelectedProjectId);
     }
 
     private void HandleApiResponse(ApiResponse<TaskDto> response)

@@ -46,9 +46,18 @@ namespace ProjectManagement.App.Services
             }
         }
 
-        public Task<ApiResponse<Guid>> DeleteProject(Guid id)
+        public async Task<ApiResponse<Guid>> DeleteProject(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _client.DeleteProjectAsync(id);
+                return new ApiResponse<Guid> { Success = true };
+            }
+            catch (ApiException e)
+            {
+
+                return ConvertApiExceptions<Guid>(e);
+            }
         }
 
         public async Task<List<ProjectViewModel>> GetAllProjects()

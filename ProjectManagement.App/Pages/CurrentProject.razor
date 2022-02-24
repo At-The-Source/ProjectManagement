@@ -12,6 +12,7 @@
 else
 {
     <button class="btn btn-success mb-2" @onclick="() => AddTask(CurrentProjectId)">Add task</button>
+    <button class="btn btn-danger mb-2" @onclick="() => DeleteCurrentProject(CurrentProjectId)">Delete project</button>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -30,7 +31,13 @@ else
                     {
                         taskAmount++;
                         <tr>
-                            <th scope="row"></th>
+                            <th scope="row">
+                                <svg fill="none" viewBox="0 0 12 12" width="20" height="20">
+                                <circle fill="none" cx="50%" cy="50%" r="40%" stroke="green" stroke-width=".8"></circle>
+                                <path fill="green" d="M 8.55 4.838 C 8.7 4.688 8.7 4.463 8.55 4.313 C 8.4 4.162 8.175 4.162 8.025 4.313 L 4.8 7.537 L 3.638 6.375 C 3.487 6.225 3.225 6.225 3.112 6.375 C 3 6.525 3 6.75 3.112 6.9 L 4.537 8.325 C 4.688 8.475 4.912 8.475 5.063 8.325 L 8.55 4.838 Z">
+                                </path>
+                                </svg>
+                            </th>
                             <td>
                                 @task.TaskName
                             </td>
@@ -53,12 +60,12 @@ else
 
 @code {
     [Parameter]
-    public Guid? CurrentProjectId { get; set; }
+    public Guid CurrentProjectId { get; set; }
 
     public ICollection<ProjectTaskViewModel> Projects { get; set; }
     private int taskAmount = 0;
 
-    protected void AddTask(Guid? id)
+    protected void AddTask(Guid id)
     {
         var projectId = id.ToString();
         NavigationManager.NavigateTo("/addtask/" + projectId);
@@ -68,6 +75,11 @@ else
         var taskid = id.ToString();
         var projId = CurrentProjectId.ToString();
         NavigationManager.NavigateTo("/updatetask/" + taskid);
+    }
+    protected async void DeleteCurrentProject(Guid id)
+    {
+        await ProjectDataService.DeleteProject(id);
+        NavigationManager.NavigateTo("index");
     }
 
     protected override async System.Threading.Tasks.Task OnInitializedAsync()
